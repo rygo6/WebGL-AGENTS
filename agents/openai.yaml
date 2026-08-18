@@ -1,0 +1,4 @@
+interface:
+  display_name: "WebGL"
+  short_description: "Local WebGL specifications, tests, and examples"
+  default_prompt: "Use $webgl to answer this WebGL question from the local specifications and tests."

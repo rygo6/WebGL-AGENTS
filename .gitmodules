@@ -1,0 +1,20 @@
+[submodule "references/WebGL"]
+	path = references/WebGL
+	url = https://github.com/KhronosGroup/WebGL.git
+	branch = main
+[submodule "references/WebGLSamples"]
+	path = references/WebGLSamples
+	url = https://github.com/WebGLSamples/WebGLSamples.github.io.git
+	branch = master
+[submodule "references/WebGL2Samples"]
+	path = references/WebGL2Samples
+	url = https://github.com/WebGLSamples/WebGL2Samples.git
+	branch = master
+[submodule "references/WebGLFundamentals"]
+	path = references/WebGLFundamentals
+	url = https://github.com/gfxfundamentals/webgl-fundamentals.git
+	branch = master
+[submodule "references/ANGLE"]
+	path = references/ANGLE
+	url = https://github.com/google/angle.git
+	branch = main

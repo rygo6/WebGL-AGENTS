@@ -1,18 +1,18 @@
 ---
 name: webgl
-description: Answer questions and help implement, debug, optimize, or test WebGL by referencing local specification, conformance, sample, tutorial, and ANGLE repositories. Use for WebGL 1/2, WebGLRenderingContext, WebGL2RenderingContext, GLSL ES shaders, buffers, textures, framebuffers, extensions, context loss, browser GPU behavior, WebGL conformance tests, and JavaScript graphics code. Always consult the local repos before answering.
+description: Use local specifications, conformance tests, examples, and ANGLE source to answer questions and develop, debug, or test WebGL 1 and 2 code. Use for WebGL APIs, shaders, rendering state, extensions, context loss, and browser or backend issues affecting WebGL.
 ---
 
 # WebGL Local Reference Skill
 
-Always consult the relevant repositories in this skill's `references/` folder:
+Search the relevant local sources before answering technical questions. Paths below are relative to this skill directory; read only the sources needed for the request.
 
 ```text
-references/WebGL/              ← Khronos WebGL 1/2 specifications, extensions, and CTS
-references/WebGLSamples/       ← Classic runnable WebGL examples
-references/WebGL2Samples/      ← Focused WebGL 2 examples
-references/WebGLFundamentals/  ← Conceptual lessons and focused examples
-references/ANGLE/              ← Browser-facing OpenGL ES implementation and tests
+references/WebGL/                   ← Khronos WebGL 1/2 specifications, extensions, and CTS
+references/WebGLSamples/            ← Classic runnable WebGL examples
+references/WebGL2Samples/           ← Focused WebGL 2 examples
+references/WebGLFundamentals/       ← Conceptual lessons and focused examples
+references/ANGLE/                   ← Browser-facing OpenGL ES implementation and tests
 ```
 
 WebGL is the browser API. Use the separate `opengl` skill for native OpenGL and OpenGL ES questions, and use `webxr` when WebGL is used through WebXR-specific bindings.
@@ -42,8 +42,8 @@ Treat the Khronos specification as normative. Treat samples and tutorials as ill
 
 ## Implement and debug WebGL code
 
-1. Start with the smallest matching example in `WebGLSamples`, `WebGL2Samples`, or `WebGLFundamentals`.
-2. Cross-check every relevant call against the WebGL specification; OpenGL tutorials are not automatically valid WebGL guidance.
+1. Work from the user's code or reproduction. Use a matching example in `WebGLSamples`, `WebGL2Samples`, or `WebGLFundamentals` when it clarifies the implementation.
+2. Verify the API behavior and constraints the answer depends on against the WebGL specification; native OpenGL examples may rely on behavior WebGL does not permit.
 3. For shader failures, check the required GLSL ES version, precision declarations, interface matching, compiler log, and WebGL-specific restrictions.
 4. For black frames or incomplete rendering, inspect context creation, viewport, program link status, vertex input, texture completeness, framebuffer completeness, depth/blend/cull state, and GL errors.
 5. For browser/backend-specific behavior, search ANGLE source and tests, then identify the backend and browser assumptions explicitly.
@@ -57,8 +57,12 @@ Treat the Khronos specification as normative. Treat samples and tutorials as ill
 
 ## Answering strategy
 
-- Search or read local files before answering.
-- Cite repository-relative files so the evidence is reproducible.
+- Cite the source files and relevant sections used. Make local file links resolvable from the user's workspace.
 - Separate WebGL 1, WebGL 2, extension, and browser-specific behavior.
 - Do not infer current browser support from a specification, test, or sample; verify support when it matters.
-- If submodules are absent, run `git submodule update --init` from the skill directory before relying on memory. Do not recurse into `references/ANGLE`: its nested submodules pull roughly 12 GB of Chromium dependencies that this skill never cites, and they fail outright on `chrome-internal.googlesource.com`, which is not publicly reachable. The other submodules are safe to recurse.
+
+## Reference availability and versions
+
+- Local checkouts are snapshots. Match the sources to the user's target version; verify current claims against official upstream sources when freshness matters. Do not silently update existing checkouts.
+- If a needed submodule is missing, initialize only that reference with `git submodule update --init -- references/<repo>` from this skill directory. Omit `--recursive`; nested build dependencies are unnecessary for source lookup.
+- If a source remains unavailable, state the limitation and use an official upstream source when accessible. Do not present an unverified recollection as a source-backed conclusion.

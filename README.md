@@ -1,8 +1,7 @@
 # WebGL-AGENTS
 
-An agent skill that answers WebGL questions by referencing locally cloned official repositories,
-rather than relying solely on training data. It is agent-agnostic and works with any coding agent
-that supports skills (Claude Code, Codex, etc.).
+An agent skill that answers WebGL questions using local specifications, examples, and ANGLE source.
+It works with coding agents that support skills.
 
 ### Reference repos included
 
@@ -18,25 +17,21 @@ that supports skills (Claude Code, Codex, etc.).
 
 Install once into the shared agent skills directory, then symlink it into each agent's skills folder.
 
-The reference repos are git submodules. Initialize them one level deep only — they are read-only
-references that are never built, so nested build dependencies are pure overhead:
+The reference repositories are Git submodules. Initialize them without nested dependencies for
+source lookup:
 
 ```bash
 git clone git@github.com:rygo6/WebGL-AGENTS.git ~/.agents/skills/webgl
 cd ~/.agents/skills/webgl
 git submodule update --init
-git submodule update --remote
 ```
 
-Do not pass `--recursive` or clone with `--recurse-submodules`. ANGLE's own nested submodules pull
-roughly 12 GB of Chromium build dependencies that this skill never references, and they fail outright
-on `chrome-internal.googlesource.com`, which is not publicly reachable. If you have already recursed
-into ANGLE and want the space back:
+Do not pass `--recursive` or clone with `--recurse-submodules` for source lookup. ANGLE's nested
+dependencies can require large downloads and access to private Chromium repositories. They are
+unnecessary for this skill's reference workflow.
 
-```bash
-git -C references/ANGLE submodule deinit --all -f
-rm -rf .git/modules/references/ANGLE/modules
-```
+The commands above use the recorded reference revisions. To deliberately refresh existing
+references, review local changes first, then run `git submodule update --remote` and inspect the result.
 
 Then link it into the agents you use:
 
@@ -55,7 +50,7 @@ mklink /J "%USERPROFILE%\.codex\skills\webgl"  "%USERPROFILE%\.agents\skills\web
 
 ## Usage
 
-Once installed, invoke `/webgl` from any agent that supports skills.
+Once installed, request the `webgl` skill by name or use your agent’s skill picker or invocation syntax.
 
 ## Related skills
 
